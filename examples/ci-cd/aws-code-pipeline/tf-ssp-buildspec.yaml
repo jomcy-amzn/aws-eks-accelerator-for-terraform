@@ -1,0 +1,23 @@
+version: 0.2
+
+env:
+  variables:
+    USER: jmdevuser
+    BUCKET_NAME: jm-polly-bucket-5513
+  parameter-store:
+    TOKEN: "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"
+phases:
+  install:
+    commands:
+      - sudo pip install boto3
+      - wget https://releases.hashicorp.com/terraform/0.10.4/terraform_0.10.4_linux_amd64.zip
+      - unzip terraform_0.10.4_linux_amd64.zip
+      - sudo mv terraform /bin
+      - rm terraform_0.10.4_linux_amd64.zip
+  build:
+    commands:
+      - mkdir /tmp/plan
+      - terraform init
+      - terraform plan -out=/tmp/plan/plan-out -no-color 2>&1 | tee /tmp/plan/describe-plan
+      - aws s3 cp /tmp/plan/ s3://$BUCKET_NAME/$CODEBUILD_SOURCE_VERSION/plan/ --recursive
+      #- sh /opt/github-callback.sh "$(cat /tmp/plan/describe-plan)"
