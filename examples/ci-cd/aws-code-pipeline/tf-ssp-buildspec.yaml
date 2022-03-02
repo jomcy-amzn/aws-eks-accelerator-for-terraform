@@ -11,7 +11,6 @@ phases:
   install:
     commands:
       - echo "Installation of Pre-build tools.."
-      - sudo pip install boto3
       - wget https://releases.hashicorp.com/terraform/1.1.6/terraform_1.1.6_linux_amd64.zip
       - unzip terraform_1.1.6_linux_amd64.zip
       - sudo mv terraform /bin
