@@ -36,7 +36,6 @@ then
     echo "## VALIDATION : Running checkov ..."
     #checkov -s -d .
     checkov -o junitxml --framework terraform -d ./ >checkov.xml
-    cp checkov.xml $CODEBUILD_SRC_DIR/reports/checkov.xml
 fi
 tfCheckovOutput=$?
 

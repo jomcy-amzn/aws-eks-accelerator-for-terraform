@@ -32,11 +32,13 @@ phases:
     commands:
       - "echo ## VALIDATION : Starting ..."
       - cd $CODEBUILD_SRC_DIR
-      - mkdir $CODEBUILD_SRC_DIR/ reports
+      - mkdir ${EXAMPLE_DIR}/reports
       - cd ${EXAMPLE_DIR}
       - pwd
       - "terraform init"
       - "/bin/bash ../ci-cd/aws-code-pipeline/scripts/tf_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
+      - ls
+      - cp *.xml ${EXAMPLE_DIR}/reports/
   build:
     commands:
       #- "echo ## TERRAFORM INIT : Initialize the Terraform Workspace"
@@ -50,9 +52,9 @@ artifacts:
 reports:
   checkov-reports:
     commands:
-      - ls
+      - ls ./reports -al
       - echo "PWD"
       - pwd
     files:
-      - "${CODEBUILD_SRC_DIR}/reports/*.xml"
+      - "${EXAMPLE_DIR}/reports/*.xml"
     fileformat: "JUNITXML"
