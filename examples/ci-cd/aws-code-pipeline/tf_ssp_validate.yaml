@@ -41,8 +41,8 @@ phases:
       - cp checkov.xml ./reports/checkov.xml
   build:
     commands:
-      #- "echo ## TERRAFORM INIT : Initialize the Terraform Workspace"
-     # - "terraform plan -out tfapply"
+      - "echo ## TERRAFORM INIT : Initialize the Terraform Workspace"
+      - "terraform plan -out tfapply"
   post_build:
     commands:
       - echo "Nothing to do in the post_build  for now"
