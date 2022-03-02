@@ -38,7 +38,7 @@ phases:
       - cd ${EXAMPLE_DIR}
       - pwd
       - "terraform init"
-      - "/bin/bash ./examples/ci-cd/aws-code-pipeline/scripts/tf_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
+      - "/bin/bash ../ci-cd/aws-code-pipeline/scripts/tf_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
   build:
     commands:
       - "echo ## TERRAFORM INIT : Initialize the Terraform Workspace"
