@@ -10,6 +10,7 @@ env:
     ENABLE_TFCHECKOV: "Y"
     ENABLE_TFSEC: "Y"
     EXAMPLE_DIR: "examples/eks-cluster-with-new-vpc"
+    TFSEC_VERSION: "v1.5.0"
 
 phases:
   install:
@@ -26,7 +27,9 @@ phases:
       - pip3 install checkov
       - yum install -y golang
       #- go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
-      - go get -u github.com/tfsec/tfsec/cmd/tfsec
+      - wget -q -O tfsec https://github.com/aquasecurity/tfsec/releases/download/${TFSEC_VERSION}/tfsec-linux-amd64 \
+        && chmod +x ./tfsec \
+        && mv ./tfsec /usr/local/bin/tfsec
       - aws sts get-caller-identity
       #- cd ./examples/ci-cd/aws-code-pipeline/scripts
       #- "/bin/bash tf_ssp_validation.sh ${ENVIRONMENT}"
