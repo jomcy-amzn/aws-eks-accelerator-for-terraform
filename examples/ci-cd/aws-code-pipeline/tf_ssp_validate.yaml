@@ -45,7 +45,11 @@ phases:
     commands:
       - echo "Nothing to do in the post_build  for now"
 artifacts:
-  reports:
-    junit: checkov.xml
   files:
     - '**/*'
+reports:
+  checkov-reports:
+    files:
+      - "./checkov.xml"
+    fileformat: "JUNITXML"
+  junit: checkov.xml
