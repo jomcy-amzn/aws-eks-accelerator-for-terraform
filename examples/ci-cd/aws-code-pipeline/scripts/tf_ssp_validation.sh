@@ -43,7 +43,8 @@ if (( ${tfTfsec} == "Y"))
 then
     echo "## VALIDATION : Running tfsec ..."
     #tfsec .
-    tfsec terraform/aws --format junit --out tfsec-junit.xml
+    tfsec ./ --format junit --out tfsec-junit.xml
+    ls
 fi
 tfTfsecOutput=$?
 
