@@ -1,9 +1,8 @@
 version: 0.2
 
-#env:
-#  variables:
-#    key: "value"
-#    key: "value"
+env:
+  variables:
+    EXAMPLE_DIR: "examples/eks-cluster-with-new-vpc"
 
 phases:
   install:
@@ -15,7 +14,7 @@ phases:
 
   build:
     commands:
-      - cd templates/source
+      - cd $CODEBUILD_SRC_DIR/${EXAMPLE_DIR}
       - terraform apply -input=false tfapply
   post_build:
     commands:

@@ -4,7 +4,7 @@ env:
   variables:
     TF_VERSION: "1.1.6"
     ENVIRONMENT: "dev"
-    SKIPVALIDATIONFAILURE: "N"
+    SKIPVALIDATIONFAILURE: "Y"
     ENABLE_TFVALIDATE: "Y"
     ENABLE_TFFORMAT: "Y"
     ENABLE_TFCHECKOV: "Y"
@@ -51,17 +51,6 @@ artifacts:
     - '**/*'
 reports:
   checkov-reports:
-    commands:
-      - ls ./reports -al
-      - echo "PWD"
-      - pwd
     files:
       - "${EXAMPLE_DIR}/reports/*.xml"
-    fileformat: "JUNITXML"
-  checkov2-reports:
-    commands:
-      - ls ./reports -al
-      - pwd
-    files:
-      - "./reports/*.xml"
     fileformat: "JUNITXML"
