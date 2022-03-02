@@ -14,9 +14,8 @@ phases:
       - "unzip -o terraform.zip"
       - mv terraform /bin
       - rm terraform.zip
-      - apt-get update
-      - apt-cache search source
-      - apt-get install -y curl jq awscli
+      - yum update
+      - yum install -y curl jq awscli
       - pip3 install checkov
       - go get -u github.com/tfsec/tfsec/cmd/tfsec
       - aws sts get-caller-identity
