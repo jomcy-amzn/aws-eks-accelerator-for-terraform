@@ -26,7 +26,7 @@ phases:
       - cd ./examples/eks-cluster-with-new-vpc
       - mkdir /tmp/plan
       - terraform init
-      - terraform apply --auto-approve
+      #- terraform apply --auto-approve
       -  terraform destroy --auto-approve
   post_build:
     commands:
