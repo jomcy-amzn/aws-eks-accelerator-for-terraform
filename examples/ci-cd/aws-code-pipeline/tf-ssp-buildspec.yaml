@@ -6,7 +6,7 @@ env:
     BUCKET_NAME: jm-polly-bucket-5513
     AWS_REGION: "us-east-2"
   parameter-store:
-    TOKEN: "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"
+    TOKEN: ssp_github_pat
 phases:
   install:
     commands:
