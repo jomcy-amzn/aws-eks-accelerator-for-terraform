@@ -52,4 +52,3 @@ reports:
     files:
       - "./checkov.xml"
     fileformat: "JUNITXML"
-  junit: checkov.xml
