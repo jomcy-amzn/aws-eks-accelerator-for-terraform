@@ -20,7 +20,7 @@ phases:
       - echo PreBuild started ....
   build:
     commands:
-      - echo "Build started on `date`
+      - echo "Build started on `date` "
       - mkdir /tmp/plan
       - terraform init
       - terraform plan -out=/tmp/plan/plan-out -no-color 2>&1 | tee /tmp/plan/describe-plan
