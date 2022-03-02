@@ -8,7 +8,7 @@ env:
     ENABLE_TFVALIDATE: "Y"
     ENABLE_TFFORMAT: "Y"
     ENABLE_TFCHECKOV: "Y"
-    ENABLE_TFSEC: "N"
+    ENABLE_TFSEC: "Y"
     EXAMPLE_DIR: "examples/eks-cluster-with-new-vpc"
 
 phases:
@@ -24,7 +24,8 @@ phases:
       - yum update -y
       - yum install -y curl jq awscli
       - pip3 install checkov
-      #- go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
+      - yum install -y golang
+      - go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
       - aws sts get-caller-identity
       #- cd ./examples/ci-cd/aws-code-pipeline/scripts
       #- "/bin/bash tf_ssp_validation.sh ${ENVIRONMENT}"
@@ -34,11 +35,10 @@ phases:
       - cd $CODEBUILD_SRC_DIR
       - mkdir ${EXAMPLE_DIR}/reports
       - cd ${EXAMPLE_DIR}
-      - pwd
       - "terraform init"
       - "/bin/bash ../ci-cd/aws-code-pipeline/scripts/tf_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
-      - ls
       - cp checkov.xml ./reports/checkov.xml
+      - cp tfsec-junit.xml ./reports/tfsec-junit.xml
   build:
     commands:
       - "echo ## TERRAFORM INIT : Initialize the Terraform Workspace"
@@ -52,5 +52,9 @@ artifacts:
 reports:
   checkov-reports:
     files:
-      - "${EXAMPLE_DIR}/reports/*.xml"
+      - "${EXAMPLE_DIR}/reports/checkov.xml"
+    fileformat: "JUNITXML"
+  tfsec-reports:
+    files:
+      - "${EXAMPLE_DIR}/reports/tfsec-junit.xml"
     fileformat: "JUNITXML"

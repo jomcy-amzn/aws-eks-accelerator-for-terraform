@@ -42,7 +42,8 @@ tfCheckovOutput=$?
 if (( ${tfTfsec} == "Y"))
 then
     echo "## VALIDATION : Running tfsec ..."
-    tfsec .
+    #tfsec .
+    tfsec terraform/aws --format junit --out tfsec-junit.xml
 fi
 tfTfsecOutput=$?
 
