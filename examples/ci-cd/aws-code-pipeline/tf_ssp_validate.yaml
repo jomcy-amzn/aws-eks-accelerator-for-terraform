@@ -32,6 +32,7 @@ phases:
     commands:
       - "echo ## VALIDATION : Starting ..."
       - cd $CODEBUILD_SRC_DIR
+      - mkdir $CODEBUILD_SRC_DIR/ reports
       - cd ${EXAMPLE_DIR}
       - pwd
       - "terraform init"
@@ -50,7 +51,8 @@ reports:
   checkov-reports:
     commands:
       - ls
+      - echo "PWD"
       - pwd
     files:
-      - "$CODEBUILD_SRC_DIR/reports/checkov.xml"
+      - "${CODEBUILD_SRC_DIR}/reports/*.xml"
     fileformat: "JUNITXML"
