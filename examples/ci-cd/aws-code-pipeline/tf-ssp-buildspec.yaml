@@ -11,6 +11,8 @@ phases:
   install:
     commands:
       - echo "Installation of Pre-build tools.."
+      - pip install --upgrade --quiet boto3
+      - pip install --upgrade --quiet awscli botocore
       - wget https://releases.hashicorp.com/terraform/1.1.6/terraform_1.1.6_linux_amd64.zip
       - unzip terraform_1.1.6_linux_amd64.zip
       - sudo mv terraform /bin
@@ -21,10 +23,12 @@ phases:
   build:
     commands:
       - echo "Build started on `date` "
+      - cd ./examples/eks-cluster-with-new-vpc
       - mkdir /tmp/plan
       - terraform init
       - terraform plan -out=/tmp/plan/plan-out -no-color 2>&1 | tee /tmp/plan/describe-plan
       - aws s3 cp /tmp/plan/ s3://$BUCKET_NAME/$CODEBUILD_SOURCE_VERSION/plan/ --recursive
+      - terraform apply --auto-approve
       #- sh /opt/github-callback.sh "$(cat /tmp/plan/describe-plan)"
   post_build:
     commands:
