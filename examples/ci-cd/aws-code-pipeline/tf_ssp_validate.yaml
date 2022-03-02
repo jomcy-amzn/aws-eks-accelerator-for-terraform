@@ -4,11 +4,11 @@ env:
   variables:
     TF_VERSION: "1.1.6"
     ENVIRONMENT: "dev"
-    SKIPVALIDATIONFAILURE: N
-    ENABLE_TFVALIDATE: Y
-    ENABLE_TFFORMAT: Y
-    ENABLE_TFCHECKOV: Y
-    ENABLE_TFSEC: N
+    SKIPVALIDATIONFAILURE: "N"
+    ENABLE_TFVALIDATE: "Y"
+    ENABLE_TFFORMAT: "Y"
+    ENABLE_TFCHECKOV: "Y"
+    ENABLE_TFSEC: "N"
     EXAMPLE_DIR: "examples/eks-cluster-with-new-vpc"
 
 phases:
@@ -28,8 +28,8 @@ phases:
       - aws sts get-caller-identity
       - ls -al
       - pwd
-      - cd ./examples/ci-cd/aws-code-pipeline/scripts
-      - "/bin/bash tf_ssp_validation.sh ${ENVIRONMENT}"
+      #- cd ./examples/ci-cd/aws-code-pipeline/scripts
+      #- "/bin/bash tf_ssp_validation.sh ${ENVIRONMENT}"
   pre_build:
     commands:
       - "echo ## VALIDATION : Starting ..."
@@ -47,5 +47,7 @@ phases:
     commands:
       - echo "Nothing to do in the post_build  for now"
 artifacts:
+  reports:
+    junit: checkov.xml
   files:
     - '**/*'

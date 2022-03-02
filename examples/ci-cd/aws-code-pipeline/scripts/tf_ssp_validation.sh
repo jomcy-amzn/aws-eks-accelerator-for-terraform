@@ -34,7 +34,8 @@ tfFormatOutput=$?
 if (( ${tfCheckov} == "Y"))
 then
     echo "## VALIDATION : Running checkov ..."
-    checkov -s -d .
+    #checkov -s -d .
+    checkov -o junitxml --framework terraform -d ./ > checkov.xml
 fi
 tfCheckovOutput=$?
 
