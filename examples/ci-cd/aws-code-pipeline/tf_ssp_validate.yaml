@@ -3,6 +3,12 @@ version: 0.2
 env:
   variables:
     TF_VERSION: "1.1.6"
+    ENVIRONMENT: "dev"
+    SKIPVALIDATIONFAILURE: "Y"
+    ENABLE_TFVALIDATE: "Y"
+    ENABLE_TFFORMAT: "Y"
+    ENABLE_TFCHECKOV: "Y"
+    ENABLE_TFSEC: "N"
 
 phases:
   install:
@@ -19,14 +25,14 @@ phases:
       - pip3 install checkov
       #- go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
       - aws sts get-caller-identity
-      - cd scripts
-      - "/bin/bash validation_precheck.sh ${ENVIRONMENT}"
+      - cd ./scripts
+      - "/bin/bash tf_ssp_validation.sh ${ENVIRONMENT}"
   pre_build:
     commands:
       - "echo ## VALIDATION : Starting ..."
       - cd ../templates/source
       - "terraform init"
-      - "/bin/bash ../../scripts/validation_check.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
+      - "/bin/bash ../../scripts/tf_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
   build:
     commands:
       - "echo ## TERRAFORM INIT : Initialize the Terraform Workspace"

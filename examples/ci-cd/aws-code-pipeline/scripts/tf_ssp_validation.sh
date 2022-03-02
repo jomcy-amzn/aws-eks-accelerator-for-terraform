@@ -8,7 +8,7 @@ tfCheckov=$4
 tfTfsec=$5
 # -----------------------------
 
-echo "## VALIDATION Overview ##"
+echo "### VALIDATION Overview ###"
 echo "-------------------------"
 echo "Skip Validation Errors on Failure : ${SKIPVALIDATIONFAILURE}"
 echo "Terraform Validate : ${tfValidate}"
