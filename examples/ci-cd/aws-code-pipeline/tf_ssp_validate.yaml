@@ -9,6 +9,7 @@ env:
     ENABLE_TFFORMAT: "Y"
     ENABLE_TFCHECKOV: "Y"
     ENABLE_TFSEC: "N"
+    EXAMPLE_DIR: "examples/eks-cluster-with-new-vpc"
 
 phases:
   install:
@@ -27,14 +28,17 @@ phases:
       - aws sts get-caller-identity
       - ls -al
       - pwd
-      - cd ./scripts
+      - cd ./examples/ci-cd/aws-code-pipeline/scripts
       - "/bin/bash tf_ssp_validation.sh ${ENVIRONMENT}"
   pre_build:
     commands:
       - "echo ## VALIDATION : Starting ..."
-      - cd ../templates/source
+      - cd $CODEBUILD_SRC_DIR
+      - pwd
+      - cd ${EXAMPLE_DIR}
+      - pwd
       - "terraform init"
-      - "/bin/bash ../../scripts/tf_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
+      - "/bin/bash ./examples/ci-cd/aws-code-pipeline/scripts/tf_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
   build:
     commands:
       - "echo ## TERRAFORM INIT : Initialize the Terraform Workspace"
