@@ -38,7 +38,7 @@ phases:
       - "terraform init"
       - "/bin/bash ../ci-cd/aws-code-pipeline/scripts/tf_ssp_validation.sh ${SKIPVALIDATIONFAILURE} ${ENABLE_TFVALIDATE} ${ENABLE_TFFORMAT} ${ENABLE_TFCHECKOV} ${ENABLE_TFSEC}"
       - ls
-      - cp *.xml ${EXAMPLE_DIR}/reports/
+      - cp checkov.xml ${EXAMPLE_DIR}/reports/checkov.xml
   build:
     commands:
       #- "echo ## TERRAFORM INIT : Initialize the Terraform Workspace"
