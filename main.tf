@@ -35,7 +35,7 @@ module "kms" {
   count  = var.create_eks && var.cluster_kms_key_arn == null ? 1 : 0
   source = "./modules/aws-kms"
 
-  alias                   = "alias/${module.eks_tags.id}"
+  alias                   = "alias/${module.eks_tags.id}-"
   description             = "${module.eks_tags.id} EKS cluster secret encryption key"
   policy                  = data.aws_iam_policy_document.eks_key.json
   deletion_window_in_days = var.cluster_kms_key_deletion_window_in_days

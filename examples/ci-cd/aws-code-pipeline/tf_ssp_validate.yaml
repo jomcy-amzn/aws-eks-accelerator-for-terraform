@@ -25,6 +25,8 @@ phases:
       - pip3 install checkov
       #- go install github.com/aquasecurity/tfsec/cmd/tfsec@latest
       - aws sts get-caller-identity
+      - ls -al
+      - pwd
       - cd ./scripts
       - "/bin/bash tf_ssp_validation.sh ${ENVIRONMENT}"
   pre_build:
