@@ -182,6 +182,7 @@ module "metrics_server" {
   source            = "./metrics-server"
   helm_config       = var.metrics_server_helm_config
   manage_via_gitops = var.argocd_manage_add_ons
+  addon_context     = local.addon_context
 }
 
 module "prometheus" {
@@ -207,6 +208,7 @@ module "traefik" {
   source            = "./traefik"
   helm_config       = var.traefik_helm_config
   manage_via_gitops = var.argocd_manage_add_ons
+  addon_context     = local.addon_context
 }
 
 module "vpa" {
